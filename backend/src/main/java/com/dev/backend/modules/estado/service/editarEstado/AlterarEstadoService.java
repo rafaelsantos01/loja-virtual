@@ -18,18 +18,18 @@ public class AlterarEstadoService {
     private EstadoRepository estadoRepository;
 
     public EstadoResponseDTO execute(Long id, @Valid  EstadoRequestAtualizacaoDTO data) {
-      Optional<Estado> estadoBusca=  estadoRepository.findById(id);
+        Optional<Estado> estadoBusca=  estadoRepository.findById(id);
 
-      if(estadoBusca.isEmpty()){
-          throw new Error("Estado não encontrado");
-      }
+        if(estadoBusca.isEmpty()){
+            throw new Error("Estado não encontrado");
+        }
 
-      Estado estado = estadoBusca.get();
+        Estado estado = estadoBusca.get();
 
-      estado.setId(id);
-      estado.setNome(data.getNome());
-      estado.setSigla(data.getSigla());
-      estado.setDataAtualizacao(new Date());
+        estado.setId(id);
+        estado.setNome(data.getNome());
+        estado.setSigla(data.getSigla());
+        estado.setDataAtualizacao(new Date());
 
         estadoRepository.saveAndFlush(estado);
 
