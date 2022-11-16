@@ -1,5 +1,6 @@
 package com.dev.backend.modules.cidade.entity;
 
+import com.dev.backend.modules.estado.entity.Estado;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,10 @@ public class Cidade {
     private Long id;
 
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name="idEstado")
+    private Estado estado;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;

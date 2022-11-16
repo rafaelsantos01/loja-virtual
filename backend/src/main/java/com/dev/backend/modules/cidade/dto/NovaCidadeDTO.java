@@ -15,4 +15,6 @@ public class NovaCidadeDTO {
 
     @NotEmpty @NotNull @NotBlank
     private String nome;
+
+    private Long idEstado;
 }

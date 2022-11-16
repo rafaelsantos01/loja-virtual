@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class NovoCidadeService {
@@ -18,17 +19,26 @@ public class NovoCidadeService {
     @Autowired
     private CidadeRepository  cidadeRepository;
 
+    @Autowired
+    private EstadoRepository estadoRepository;
+
 
     public Cidade execute(@Valid NovaCidadeDTO data) {
+        Optional<Estado> estado=  estadoRepository.findById(data.getIdEstado());
 
-        Cidade estado = new Cidade();
-        estado.setNome(data.getNome());
-        estado.setDataCriacao(new Date());
-        estado.setDataAtualizacao(new Date());
+        if(estado.isEmpty()){
+            throw new Error("Estado não encontrado");
+        }
 
-        cidadeRepository.saveAndFlush(estado);
+        Cidade cidade = new Cidade();
+        cidade.setNome(data.getNome());
+        cidade.setDataCriacao(new Date());
+        cidade.setDataAtualizacao(new Date());
+        cidade.setEstado(estado.get());
 
-        return estado;
+        cidadeRepository.saveAndFlush(cidade);
+
+        return cidade;
     }
 
 
